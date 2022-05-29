@@ -5,7 +5,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 
 
-export function initNetlifyIdentity(){
+function initNetlifyIdentity(){
   console.log("initNetlifyIdentity called.")
   const script = document.createElement("script");
   script.src = "https://identity.netlify.com/v1/netlify-identity-widget.js"
@@ -22,7 +22,7 @@ function openNetlifyModal(){
     console.log('netlifyIdentity not defined')
 }
 
-class netlifyIdentity extends Component{
+class NetlifyIdentity extends Component{
   componentDidMount(){
     initNetlifyIdentity();
 
@@ -34,9 +34,10 @@ class netlifyIdentity extends Component{
 }
 
 const SecondPage = () => {
-  initNetlifyIdentity();
+
 return(
   <Layout>
+    <NetlifyIdentity />
     <Seo title="Page two" />
     <h1>Hi from the second page</h1>
     <h2 onClick={() => { openNetlifyModal() } }>Login</h2>
