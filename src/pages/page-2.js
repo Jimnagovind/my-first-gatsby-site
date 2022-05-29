@@ -1,13 +1,46 @@
-import * as React from "react"
+import React, { Component } from "react"
 import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-const SecondPage = () => (
+
+export function initNetlifyIdentity(){
+  console.log("initNetlifyIdentity called.")
+  const script = document.createElement("script");
+  script.src = "https://identity.netlify.com/v1/netlify-identity-widget.js"
+  script.async = true;
+  document.body.appendChild(script);
+}
+
+function openNetlifyModal(){
+  const netlifyIdentity = window.netlifyIdentity;
+
+  if(netlifyIdentity)
+     netlifyIdentity.open();
+  else
+    console.log('netlifyIdentity not defined')
+}
+
+class netlifyIdentity extends Component{
+  componentDidMount(){
+    initNetlifyIdentity();
+
+  }
+
+  render(){
+    return(<div></div>)
+  }
+}
+
+const SecondPage = () => {
+  initNetlifyIdentity();
+return(
   <Layout>
     <Seo title="Page two" />
     <h1>Hi from the second page</h1>
+    <h2 onClick={() => { openNetlifyModal() } }>Login</h2>
+    
     <p><b>Contact Form</b></p>
     
 <form
@@ -37,5 +70,6 @@ const SecondPage = () => (
     <Link to="/">Go back to the homepage</Link>
   </Layout>
 )
+}
 
 export default SecondPage
